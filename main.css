@@ -1,0 +1,578 @@
+img {
+    -user-drag: none;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -ms-user-drag: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #000 url('https://www.example.com/path-to-your-star-background.jpg') repeat;
+    background-size: cover;
+    color: #ffffff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/*星のアニメーション*/
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/*星のスタイル*/
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.stars div {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 2px white;
+    opacity: 0.5;
+    animation: starTwinkle 2s infinite ease-in-out;
+}
+
+header {
+    background-color: rgba(30, 30, 30, 0.8); 
+    color: #f0f0f0; 
+    text-align: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+}
+
+
+header h1 {
+    background: linear-gradient(to right, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    background-clip: text; /* これを追加 */
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* これを追加 */
+    font-size: 36px; /* ここで文字サイズを調整 */
+    font-weight: bold; /* 文字を太くする場合 */
+    margin: 0;
+    padding: 0;
+}
+
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    min-height: calc(100vh - 140px); 
+    box-sizing: border-box;
+}
+
+main label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+main input[type="text"], main select {
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+main input[type="text"] {
+    width: calc(100% - 20px);
+}
+
+.uuid-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.uuid-container input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.uuid-container button {
+    padding: 8px 12px;
+    background-color: #3c1a5b;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.uuid-container button:hover {
+    background-color: #5e29a7;
+    transform: scale(1.05);
+}
+
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 0 0 10px #5e29a7;
+    }
+    50% {
+        box-shadow: 0 0 20px #0e2396;
+    }
+}
+
+button,
+.uuid-container button,
+.create-button {
+    animation: buttonPulse 2s infinite alternate;
+}
+
+.file-upload {
+    margin-bottom: 15px;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.file-upload label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgba(50, 50, 50, 0.8);
+    border-radius: 6px;
+    color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px;
+    text-align: center;
+    border: 2px solid #444;
+    position: relative;
+    overflow: hidden;
+}
+
+.file-upload label:hover {
+    background-color: rgba(70, 70, 70, 0.8); 
+    transform: scale(1.05); 
+}
+
+
+@keyframes pulsate {
+    0% {
+        background-color: rgba(50, 50, 50, 0.8);
+    }
+    50% {
+        background-color: rgba(70, 70, 70, 0.8);
+    }
+    100% {
+        background-color: rgba(50, 50, 50, 0.8);
+    }
+}
+
+#fileName {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: rgba(50, 50, 50, 0.8); 
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #f0f0f0; 
+}
+
+#fileName:hover {
+    background-color: rgba(70, 70, 70, 0.8);
+}
+
+.file-upload label span {
+    position: relative;
+    z-index: 1;
+}
+
+.skin-settings, .cape-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 8px; 
+    background-color: rgba(30, 30, 30, 0.8); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+    color: #f0f0f0; 
+}
+
+.skin-settings img, .cape-container img {
+    margin-bottom: 10px;
+    width: 64px; 
+    height: 64px; 
+}
+
+.skin-settings input[type="text"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: calc(100% - 20px); 
+    background-color: #333; 
+    color: #f0f0f0; 
+    border: 1px solid #555;
+}
+
+.combo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%; 
+}
+
+.combo-container label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #f0f0f0; 
+}
+
+.combo-container select {
+    margin-right: 10px;
+    flex: 1;
+    background-color: #333;
+    color: #f0f0f0; 
+    border: 1px solid #555; 
+}
+
+.skin-settings select,
+.skin-settings input[type="checkbox"],
+.skin-settings button {
+    margin-right: 10px;
+    background-color: #333; 
+    color: #f0f0f0; 
+    border: 1px solid #555; 
+}
+
+.cape-container label {
+    cursor: pointer;
+    background-color: #3a3a3a;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 5px;
+    transition: background-color 0.3s;
+    color: #f0f0f0;
+}
+
+.cape-container label:hover {
+    background-color: #5a5a5a;}
+
+.cape-container .cape-preview {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+.cape-container .delete-cape {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.cape-container .delete-cape:hover {
+    background-color: #c82333;
+}
+
+/*作成ボタン */
+.create-button {
+    display: block;
+    width: calc(100% - 20px); 
+    padding: 12px;
+    background-color: #3c1a5b;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s ease;
+    margin: 20px auto 60px auto; 
+    box-sizing: border-box;
+}
+
+.create-button:hover {
+    background-color: #5e29a7;
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: rgba(30, 30, 30, 0.8); 
+    color: #f0f0f0; 
+    padding: 10px 0;
+    text-align: center;
+    border-top: 1px solid #333; 
+}
+
+footer a {
+    text-decoration: none;
+    color: #7621d6;
+}
+
+footer a:focus,
+footer a:hover {
+    text-decoration: none; 
+    color: #8038d1;
+}
+
+footer p {
+    margin: 5px 0 0;
+    color: #ffffff;
+}
+
+.description {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: rgba(30, 30, 30, 0.8); 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+    text-align: center;
+    color: #f0f0f0; 
+}
+
+.description p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f0f0f0; 
+}
+
+.cape-upload.hidden {
+    display: none;
+}
+
+.cape-upload {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+.cape-upload input[type="file"] {
+    display: none;
+}
+
+.cape-upload-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgba(50, 50, 50, 0.8); 
+    border-radius: 6px;
+    color: #f0f0f0; 
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px;
+    text-align: center;
+    border: 2px solid #444; 
+    position: relative;
+    overflow: hidden;
+}
+
+.cape-upload-label:hover {
+    background-color: rgba(70, 70, 70, 0.8); 
+    transform: scale(1.05); 
+}
+
+/*ボタンのアニメーション*/
+@keyframes pulsate {
+    0% {
+        background-color: rgba(50, 50, 50, 0.8);
+    }
+    50% {
+        background-color: rgba(70, 70, 70, 0.8);
+    }
+    100% {
+        background-color: rgba(50, 50, 50, 0.8);
+    }
+}
+
+#capePreview {
+    width: 64px;
+    height: 32px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    display: none; 
+}
+
+.generate-pack {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1c1c2b;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    animation: buttonPulse 2s infinite alternate;
+}
+
+.generate-pack:hover {
+    background-color: #3b3b54;
+    transform: scale(1.05);
+}
+
+/*マント削除ボタン */
+#removeCapeButton {
+    display: none;
+    margin-top: 10px;
+    background-color: #ff6666;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#removeCapeButton:hover {
+    background-color: #ff4d4d;
+}
+
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.star {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+    animation: twinkle 1.5s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.star {
+    width: 2px;
+    height: 2px;
+    animation-duration: 1.5s;
+}
+
+
+.form-textbox {
+    padding: 8px;
+    margin-bottom: 15px;
+    width: calc(100% - 20px); 
+    background-color: #333; 
+    color: #f0f0f0; 
+    border: 1px solid #222;
+    border-radius: 4px; 
+    box-sizing: border-box;
+}
+
+#skin-pack-form {
+    height: 600px; 
+    overflow-y: auto;
+    border: none; 
+    padding: 20px;
+}
+
+/*スクロールバー*/
+#skin-pack-form::-webkit-scrollbar {
+    width: 12px; 
+    background-color: #333; 
+}
+
+#skin-pack-form::-webkit-scrollbar-track {
+    background-color: #333; 
+    border-radius: 10px;
+}
+
+#skin-pack-form::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 10px; 
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#skin-pack-form::-webkit-scrollbar-thumb:hover {
+    background-color: #777; 
+}
+
+/*チェックボックス*/
+.hide-armor {
+    margin-right: 8px;
+    accent-color: #3c1a5b;
+    background-color: #333; 
+    border: 1px solid #222; 
+    border-radius: 4px;
+}
+
+.hide-armor:not(:checked) {
+    background-color: #333; 
+    border: 1px solid #222;
+}
+
+.hide-armor:checked {
+    background-color: #3c1a5b; 
+    border: 1px solid #3c1a5b;
+}
+
+/*ゴミ箱ボタン*/
+.delete-skin {
+    width: 40px; 
+    height: 40px; 
+    background-color: #3c1a5b; 
+    color: #ffffff;
+    border: none;
+    border-radius: 50%; 
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.delete-skin:hover {
+    background-color: #5e29a7;
+    transform: scale(1.1); 
+}
+
+.skin-info-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.skin-details {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.large-skin-preview {
+    flex: 0 0 150px; 
+    text-align: center;
+}
+
+.skin-preview-large {
+    width: 100%; 
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #555;
+}
+
