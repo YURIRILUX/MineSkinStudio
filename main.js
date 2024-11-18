@@ -33,85 +33,126 @@ function generateUUID(elementId) {
     document.getElementById(elementId).value = uuid;
 }
 
-//スキン画像を選択する処理
 function handleFileSelect(event) {
-    const files = event.target.files;
-    const container = document.getElementById('skinPreview');
+  const files = event.target.files;
+  const container = document.getElementById('skinPreview');
 
-    Array.from(files).forEach((file, index) => {
-        if (!file.type.startsWith('image/')) return;
+  Array.from(files).forEach((file, index) => {
+      if (!file.type.startsWith('image/')) return;
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const skinInfo = document.createElement('div');
-            skinInfo.classList.add('skin-settings');
+      const reader = new FileReader();
+      reader.onload = (e) => {
+          const skinInfo = document.createElement('div');
+          skinInfo.classList.add('skin-settings');
 
-            const newSkinData = {
-                id: skinData.length,
-                name: '',
-                armType: 'default',
-                animationType: false,
-                hideArmor: false,
-                file: file,
-                imgSrc: e.target.result,
-                cape: null
-            };
-            skinData.push(newSkinData);
+          const newSkinData = {
+            id: skinData.length,
+            name: '',
+            armType: 'default',
+            //armAnimation: "none", 
+            //legsStationary: "none",
+            hideArmor: false,
+            file: file,
+            imgSrc: e.target.result,
+            cape: null
+          };
+          skinData.push(newSkinData);
 
-            skinInfo.innerHTML = `
-            <div class="skin-info-container">
-                <img src="${newSkinData.imgSrc}" alt="Skin Preview" class="skin-preview" style="width:64px; height:64px; margin-right:10px;">
-                <div class="skin-details">
-                    <input type="text" placeholder="スキン名を入力" data-id="${newSkinData.id}" class="skin-name short-input">
-                    <div class="combo-container">
-                        <div>
-                            <label for="arm-type-${newSkinData.id}">腕のタイプ:</label>
-                            <select id="arm-type-${newSkinData.id}" data-id="${newSkinData.id}" class="arm-type">
-                                <option value="default">デフォルト</option>
-                                <option value="slim">スリム</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="animation-${newSkinData.id}">ゾンビ化:</label>
-                            <select id="animation-${newSkinData.id}" data-id="${newSkinData.id}" class="animation-type">
-                                <option value="false" selected>いいえ</option>
-                                <option value="true">はい</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="checkbox" id="hide-armor-${newSkinData.id}" data-id="${newSkinData.id}" class="hide-armor"> 防具を非表示
-                            </label>
-                        </div>
-                    </div>
-                    <div class="cape-upload">
-                        <label for="cape-upload-${newSkinData.id}" class="cape-upload-label">マント画像を選択</label>
-                        <input type="file" id="cape-upload-${newSkinData.id}" accept="image/png">
-                        <div id="capePreview-${newSkinData.id}" class="cape-preview"></div>
-                    </div>
-                    <button type="button" class="delete-skin" data-id="${newSkinData.id}">🗑️</button>
-                </div>
-            </div>`;
-        container.appendChild(skinInfo);
+          skinInfo.innerHTML = `
+          <div class="skin-info-container">
+              <img src="${newSkinData.imgSrc}" alt="Skin Preview" class="skin-preview" style="width:64px; height:64px; margin-right:10px;">
+              <div class="skin-details">
+                  <input type="text" placeholder="スキン名を入力" data-id="${newSkinData.id}" class="skin-name short-input">
+                  <div class="combo-container">
+                      <div>
+                          <label for="arm-type-${newSkinData.id}">腕のタイプ:</label>
+                          <select id="arm-type-${newSkinData.id}" data-id="${newSkinData.id}" class="arm-type">
+                              <option value="default">デフォルト</option>
+                              <option value="slim">スリム</option>
+                          </select>
+                      </div>
+                      <div>
+                          <label for="arm-animation-${newSkinData.id}">腕アニメーション:</label>
+                          <select id="arm-animation-${newSkinData.id}" data-id="${newSkinData.id}" class="arm-animation">
+                              <option value="none" selected>なし</option>
+                              <option value="zombie">ゾンビ化</option>
+                              <option value="statue_of_liberty">右腕上げる</option>
+                              <option value="stationary">腕固定</option>
+                              <option value="single">同じ動き</option>
+                          </select>
+                      </div>
+                      <div>
+                          <label for="trip-leg-${newSkinData.id}">脚アニメーション:</label>
+                          <select id="trip-leg-${newSkinData.id}" data-id="${newSkinData.id}" class="trip-leg">
+                              <option value="none" selected>なし</option>
+                              <option value="stationary">脚固定</option>
+                              <option value="single">同じ動き</option>
+                          </select>
+                      </div>
+                      <div>
+                          <label>
+                              <input type="checkbox" id="hide-armor-${newSkinData.id}" data-id="${newSkinData.id}" class="hide-armor"> 防具非表示
+                          </label>
+                      </div>
+                  </div>
+                  <div class="cape-upload">
+                      <label for="cape-upload-${newSkinData.id}" class="cape-upload-label">マント画像を選択</label>
+                      <input type="file" id="cape-upload-${newSkinData.id}" accept="image/png">
+                      <div id="capePreview-${newSkinData.id}" class="cape-preview"></div>
+                  </div>
+                  <button type="button" class="delete-skin" data-id="${newSkinData.id}">🗑️</button>
+              </div>
+          </div>`;
 
-            const capeUpload = skinInfo.querySelector('.cape-upload');
-            capeUpload.style.display = 'block';
+          container.appendChild(skinInfo);
 
-            const deleteButton = skinInfo.querySelector('.delete-skin');
-            deleteButton.addEventListener('click', function () {
-                const skinId = parseInt(this.getAttribute('data-id'));
-                if (confirm('このスキンを削除しますか？')) {
-                    deleteSkin(skinId);
-                }
-            });
+          const capeUpload = skinInfo.querySelector('.cape-upload');
+          capeUpload.style.display = 'block';
 
-            updateSkinData(newSkinData.id, e.target.result, file);
+          const deleteButton = skinInfo.querySelector('.delete-skin');
+          deleteButton.addEventListener('click', function () {
+              const skinId = parseInt(this.getAttribute('data-id'));
+              if (confirm('このスキンを削除しますか？')) {
+                  deleteSkin(skinId);
+              }
+          });
 
-            const capeInput = skinInfo.querySelector(`#cape-upload-${newSkinData.id}`);
-            capeInput.addEventListener('change', (e) => handleCapeSelect(e, newSkinData.id));
-        };
-        reader.readAsDataURL(file);
-    });
+          updateSkinData(newSkinData.id, e.target.result, file);
+
+          const capeInput = skinInfo.querySelector(`#cape-upload-${newSkinData.id}`);
+          capeInput.addEventListener('change', (e) => handleCapeSelect(e, newSkinData.id));
+
+      //腕アニメーション設定
+      const armAnimationSelect = skinInfo.querySelector(`#arm-animation-${newSkinData.id}`);
+      armAnimationSelect.value = "none";
+      armAnimationSelect.addEventListener('change', (e) => {
+        newSkinData.armAnimation = e.target.value;
+      });
+
+      //脚アニメーション設定
+      const tripLegSelect = skinInfo.querySelector(`#trip-leg-${newSkinData.id}`);
+      tripLegSelect.value = "none";
+      tripLegSelect.addEventListener('change', (e) => {
+        newSkinData.legsStationary = e.target.value;
+      });
+
+      //防具非表示設定
+      const hideArmorCheckbox = skinInfo.querySelector(`#hide-armor-${newSkinData.id}`);
+      hideArmorCheckbox.addEventListener('change', (e) => {
+        newSkinData.hideArmor = e.target.checked;
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+//skinData更新関数
+function updateSkinData(id, imgSrc, file) {
+  const skin = skinData.find(skin => skin.id === id);
+  if (skin) {
+      skin.imgSrc = imgSrc;
+      skin.file = file;
+  }
 }
 
 function handleCapeSelect(event, skinId) {
@@ -130,17 +171,28 @@ function handleCapeSelect(event, skinId) {
 }
 
 function updateSkinData(id, imgSrc, file) {
-    const skin = skinData.find(s => s.id === id);
-    skin.imgSrc = imgSrc;
-    skin.file = file;
-    const skinNameInput = document.querySelector(`input.skin-name[data-id="${id}"]`);
-    const armTypeSelect = document.querySelector(`select.arm-type[data-id="${id}"]`);
-    const animationTypeSelect = document.querySelector(`select.animation-type[data-id="${id}"]`);
-    const hideArmorCheckbox = document.querySelector(`input.hide-armor[data-id="${id}"]`);
-    skinNameInput.addEventListener('input', () => skin.name = skinNameInput.value);
-    armTypeSelect.addEventListener('change', () => skin.armType = armTypeSelect.value);
-    animationTypeSelect.addEventListener('change', () => skin.animationType = animationTypeSelect.value === 'true');
-    hideArmorCheckbox.addEventListener('change', () => skin.hideArmor = hideArmorCheckbox.checked);
+  const skin = skinData.find(skin => skin.id === id);
+  if (skin) {
+      skin.imgSrc = imgSrc;
+      skin.file = file;
+      
+      const skinNameInput = document.querySelector(`input.skin-name[data-id="${id}"]`);
+      const armTypeSelect = document.querySelector(`select.arm-type[data-id="${id}"]`);
+      const animationTypeSelect = document.querySelector(`select.arm-animation[data-id="${id}"]`);
+      const hideArmorCheckbox = document.querySelector(`input.hide-armor[data-id="${id}"]`);
+      
+      skinNameInput.addEventListener('input', () => skin.name = skinNameInput.value);
+      armTypeSelect.addEventListener('change', () => skin.armType = armTypeSelect.value);
+      animationTypeSelect.addEventListener('change', (e) => {
+          skin.animations = {
+              "move.arms": e.target.value === "none" ? "" :
+              e.target.value === "zombie" ? "animation.player.move.arms.zombie" :
+              e.target.value === "stationary" ? "animation.player.move.arms.stationary" :
+              "animation.player.move.arms.statue_of_liberty"
+          };
+      });
+      hideArmorCheckbox.addEventListener('change', () => skin.hideArmor = hideArmorCheckbox.checked);
+  }
 }
 
 function deleteSkin(id) {
@@ -175,21 +227,47 @@ function createSkinPack() {
         ]
     };
 
+
+
     const skinsJson = {
-        skins: skinData.map((skin, index) => ({
-            localization_name: skin.name,
-            geometry: skin.armType === 'default' ? 'geometry.humanoid.custom' : 'geometry.humanoid.customSlim',
-            texture: `skin_${index}.png`,
-            cape: skin.cape ? `cape_${index}.png` : undefined,
-            type: "free",
-            animations: skin.animationType ? {
-                "move.arms": "animation.player.move.arms.zombie"
-            } : undefined,
-            hide_armor: skin.hideArmor
-        })),
-        serialize_name: packName,
-        localization_name: packName
+      skins: skinData.map((skin, index) => ({
+        localization_name: skin.name,
+        geometry: skin.armType === 'default' ? 'geometry.humanoid.custom' : 'geometry.humanoid.customSlim',
+        texture: `skin_${index}.png`,
+        cape: skin.cape ? `cape_${index}.png` : undefined,
+        type: "free",
+        animations: (() => {
+          const animations = {};
+
+          //腕アニメーション一覧
+          if (skin.armAnimation === "zombie") {
+            animations["move.arms"] = "animation.player.move.arms.zombie";
+          } else if (skin.armAnimation === "statue_of_liberty") {
+            animations["move.arms"] = "animation.player.move.arms.statue_of_liberty";
+          } else if (skin.armAnimation === "stationary") {
+            animations["move.arms"] = "animation.player.move.arms.stationary";
+          } else if (skin.armAnimation === "single") {
+            animations["move.arms"] = "animation.player.move.arms.single";
+          }
+
+          //脚アニメーション一覧
+          if (skin.legsStationary === "stationary") {
+            animations["move.legs"] = "animation.player.move.legs.stationary";
+          } else if (skin.legsStationary === "single") {
+            animations["move.legs"] = "animation.player.move.legs.single";
+          }
+
+          //animationsが空でないならお返し
+          return Object.keys(animations).length ? animations : undefined;
+        })(),
+        hide_armor: skin.hideArmor
+      })),
+      serialize_name: packName,
+      localization_name: packName
     };
+
+
+
 
     const enUsLangContent = skinData.map(skin => `skin.${packName}.${skin.name}=${skin.name}`).join('\n') +
         `\nskinpack.${packName}=${packName}`;
