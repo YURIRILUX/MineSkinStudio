@@ -54,11 +54,11 @@ header {
 header h1 {
     background: linear-gradient(to right, #00ffff, #ff00ff);
     -webkit-background-clip: text;
-    background-clip: text; /* これを追加 */
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent; /* これを追加 */
-    font-size: 36px; /* ここで文字サイズを調整 */
-    font-weight: bold; /* 文字を太くする場合 */
+    color: transparent; 
+    font-size: 36px; 
+    font-weight: bold; 
     margin: 0;
     padding: 0;
 }
@@ -224,9 +224,11 @@ button,
 
 .combo-container {
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    width: 100%; 
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    width: 100%;
+
 }
 
 .combo-container label {
@@ -241,6 +243,12 @@ button,
     background-color: #333;
     color: #f0f0f0; 
     border: 1px solid #555; 
+}
+
+.combo-container > div {
+    flex: 1 1 45%;
+    min-width: 120px;
+    box-sizing: border-box;
 }
 
 .skin-settings select,
@@ -355,8 +363,9 @@ footer p {
 
 .cape-upload {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px; 
+    margin-top: 10px;
 }
 
 .cape-upload input[type="file"] {
@@ -555,13 +564,18 @@ footer p {
 
 .skin-info-container {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .skin-details {
+    display: flex;
+    flex-direction: column;
     flex: 1;
-    margin-right: 20px;
+    width: 100%;
 }
 
 .large-skin-preview {
@@ -576,3 +590,28 @@ footer p {
     border: 1px solid #555;
 }
 
+.skin-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.setting-container .setting-row {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    margin-bottom: 5px;
+}
+
+.setting-container .setting-row > * {
+    margin: 0;
+    padding: 0;
+}
+
+.setting-container {
+    display: flex;
+    flex-wrap: wrap;
+}
